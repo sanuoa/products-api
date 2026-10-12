@@ -20,13 +20,23 @@ public class ProductController {
         return productService.getAllProducts();
     }
 
-    @GetMapping("/products/{id}")
+    @GetMapping("/{id}")
     public Product getProductById(@PathVariable Long id) {
-        return productService.getProductById(id).orElse(null);
+        return productService.findById(id).orElse(null);
     }
 
     @PostMapping
     public Product addProduct(@RequestBody Product product) {
         return productService.addProduct(product);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteProductById(@PathVariable Long id){
+        productService.deleteById(id);
+    }
+
+    @PostMapping("/search")
+    public List<Product> search(String name) {
+        return productService.findByName(name);
     }
 }
